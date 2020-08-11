@@ -30,15 +30,12 @@ def add_time(start, duration, dayOfWeek=""):
 
   ext_day = (hour + d_hour + ext_hour) //24
   
-  sum_h = round(((((hour + d_hour + ext_hour)/24) - ext_day) * 24))
+  sum_h = round(((((hour + d_hour + ext_hour)/24) - ext_day) * 24)) 
 
-  
-  AP= ""
-
-  if sum_h >= 0 and sum_h <=11:
+  if sum_h > 0 and sum_h <=11:
     AP = "AM"
     total_h = sum_h
-  elif sum_h == 24 or sum_h== 0:
+  elif sum_h == 24 or sum_h == 0:
     AP = "AM"
     total_h = 12
   else: #sum_h >11 and sum_h <=23
@@ -47,33 +44,28 @@ def add_time(start, duration, dayOfWeek=""):
       total_h = sum_h
     else:
       total_h = sum_h -12
+  
 
-  new_time = ""
-
-  if ext_day == 0:
+  if ext_day == 0: #On same day
     if len(dayOfWeek) > 0:
-      new_time = "{:02d}".format(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP + ', '+ dayOfWeek
-      #Returns: 2:02 PM, Monday
+      new_time = str(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP + ', '+ dayOfWeek
     else:
-      new_time = "{:02d}".format(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP
+      new_time = str(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP
     
   else: #Extra day > 0
 
-    if ext_day == 1:
-      if len(dayOfWeek) > 0:
+    if ext_day == 1: #NEXT DAY
+      if len(dayOfWeek) > 0: #With day of week
         d_week = whichDayOfWeek(dayOfWeek, ext_day)
-        ## Returns: 12:03 AM, Thursday (2 days later)
-        new_time = "{:02d}".format(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP + ', ' + d_week + " (next day)"
-      else:  
-        new_time = "{:02d}".format(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP + ' ' + " (next day)"
-    else:
-      if len(dayOfWeek) > 0:
+        new_time = str(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP + ', ' + d_week + " (next day)"
+      else: #No day of week
+        new_time = str(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP + " (next day)"
+    
+    else: #MORE DAYS LATER
+      if len(dayOfWeek) > 0: #With day of week
         d_week = whichDayOfWeek(dayOfWeek, ext_day)
-        ## Returns: 12:03 AM, Thursday (2 days later)
-        new_time = "{:02d}".format(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP +', ' + d_week + ' (' + str(ext_day) + " days later)"
-      else:  
-        new_time = "{:02d}".format(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP + ' (' + str(ext_day) + " days later)"
-    
-    
+        new_time = str(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP +', ' + d_week + ' (' + str(ext_day) + " days later)"
+      else:  #No day of week
+        new_time = str(total_h) + ":" + "{:02d}".format(minutes) + ' ' + AP + ' (' + str(ext_day) + " days later)"
   
   return new_time
