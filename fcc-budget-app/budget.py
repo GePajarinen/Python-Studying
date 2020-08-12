@@ -17,7 +17,7 @@ class Category:
 
     apporved = self.check_funds(amount)
 
-    if apporved == False:  
+    if apporved == True:  
       to_add= {}
       to_add["amount"] = amount* -1
       to_add["description"] = description
@@ -43,7 +43,7 @@ class Category:
     
     self.apporved = self.check_funds(amount)
     
-    if self.apporved == False:
+    if self.apporved == True:
       description_to= "Transfer to {}".format(to_account)
       self.withdraw(amount, description_to)
       
@@ -60,7 +60,7 @@ class Category:
     
     self.funds = self.get_balance()
 
-    if amount < self.funds:
+    if self.funds < amount:
       return False #Approved
     else:
       return True #NOT Approved
@@ -86,3 +86,5 @@ class Category:
 
    
 #def create_spend_chart(categories):
+def create_spend_chart(categories):
+  return "Oi"
