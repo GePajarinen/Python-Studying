@@ -85,6 +85,24 @@ class Category:
     return "\n".join(self.one_lista)
 
    
-#def create_spend_chart(categories):
 def create_spend_chart(categories):
-  return "Oi"
+  l_catergoties= categories
+  spent = 0
+
+  for ctgy in l_catergoties:
+    balance = ctgy.get_balance()
+    print ("balance", balance)
+
+    for each in ctgy.ledger:
+      print("each", each)
+
+      if each.get("amount") < 0:
+        if not "Transfer to" in each.get("description"):
+          spent += each.get("amount")
+      else: 
+        spent = spent
+      
+      print("spent", spent)
+      
+      
+      
