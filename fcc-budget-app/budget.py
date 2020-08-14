@@ -87,22 +87,33 @@ class Category:
    
 def create_spend_chart(categories):
   l_catergoties= categories
-  spent = 0
+
+  grafic = ["100|", " 90|"," 80|"," 70|"," 60|"," 50|"," 40|"," 30|"," 20|"," 10|", "  0|"]
 
   for ctgy in l_catergoties:
-    balance = ctgy.get_balance()
-    print ("balance", balance)
+    total_cash = ctgy.get_balance()
 
     for each in ctgy.ledger:
-      print("each", each)
-
+      spent = 0
       if each.get("amount") < 0:
         if not "Transfer to" in each.get("description"):
           spent += each.get("amount")
+          total_cash += abs(each.get("amount"))
+        else:
+          total_cash += abs(each.get("amount"))
       else: 
         spent = spent
       
-      print("spent", spent)
-      
+    porcento= round((abs(spent)*100/total_cash)/10)
+    print("\nporcento =", porcento)
+
+    for no_o in range(0, 10-porcento):
+      grafic[no_o] += "    "
+
+    for o in range(10-porcento, 10+1):
+      grafic[o] += " o  "
+
+
+  print('\n'.join(grafic))
       
       
