@@ -105,7 +105,6 @@ def create_spend_chart(categories):
         spent = spent
       
     porcento= round((abs(spent)*100/total_cash)/10)
-    print("\nporcento =", porcento)
 
     for no_o in range(0, 10-porcento):
       grafic[no_o] += "    "
@@ -113,7 +112,9 @@ def create_spend_chart(categories):
     for o in range(10-porcento, 10+1):
       grafic[o] += " o  "
 
+  width = len(grafic[0])-4
+  grafic.append('    '+('-'*width))
 
   print('\n'.join(grafic))
-      
-      
+  
+    
